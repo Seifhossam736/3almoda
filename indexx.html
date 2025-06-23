@@ -154,9 +154,10 @@
     <div class="logo">3almoda</div>
     <div class="controls">
       <button onclick="filterProducts('all')">All</button>
-      <button onclick="filterProducts('T-Shirts')">T-Shirts</button>
-      <button onclick="filterProducts('Hoodies')">Hoodies</button>
+      <button onclick="filterProducts('T-Shirt')">T-Shirts</button>
+      <button onclick="filterProducts('Hoodie')">Hoodies</button>
       <button onclick="filterProducts('Shoes')">Shoes</button>
+      <button onclick="filterProducts('Dress')">Dress</button>
     </div>
     <div class="nav-btns">
       <button onclick="location.href='add-product.html'">Add Product</button>
@@ -187,11 +188,22 @@
 
   <script>
     const products = [
-      { name: "Cool T-Shirt", category: "T-Shirts", img: "https://via.placeholder.com/200x200", name_ar: "تيشيرت رائع" },
-      { name: "Comfy Hoodie", category: "Hoodies", img: "https://via.placeholder.com/200x200", name_ar: "هودي مريح" },
-      { name: "Sport Shoes", category: "Shoes", img: "https://via.placeholder.com/200x200", name_ar: "أحذية رياضية" },
-      { name: "Classic T-Shirt", category: "T-Shirts", img: "https://via.placeholder.com/200x200", name_ar: "تيشيرت كلاسيك" },
-    ];
+  { name: "off white T-shirt", price: 350, category: "T-Shirt", img: "h.jpg", name_ar: "تيشرت اوف ويت" },
+  { name: "wing T-shirt", price: 350, category: "T-Shirt", img: "hhh.jpg", name_ar: "تشيرت جناح" },
+  { name: "traple A T-shirt", price: 350, category: "T-Shirt", img: "hhhh.jpg", name_ar: "تشيرت تربل A" },
+  { name: "grey dress", price: 900, category: "Dress", img: "olo.jpg", name_ar: "فستان رمادي" },
+  { name: "hoodie1", price: 550, category: "Hoodie", img: "b.jpg", name_ar: "هودي رقم 1" },
+  { name: "shoes1", price: 400, category: "Shoes", img: "io.jpg", name_ar: "جزمه رقم 1" },
+  { name: "shoes3", price: 410, category: "Shoes", img: "iuu.jpg", name_ar: "جزمه رقم 3" },
+  { name: "icon T-shirt", price: 350, category: "T-Shirt", img: "hh.jpg", name_ar: "تيشرت ايكون" },
+  { name: "white dress", price: 1000, category: "Dress", img: "pop.jpg", name_ar: "فستان ابيض" },
+  { name: "white dress2", price: 1100, category: "Dress", img: "ppo.jpg", name_ar: "فستان ابيض رقم 1" },
+  { name: "hoddie2", price: 570, category: "Hoodie", img: "bb.jpg", name_ar: "هودي رقم 2" },
+  { name: "hoddie3", price: 510, category: "Hoodie", img: "bbb.jpg", name_ar: "هودي رقم 3" },
+  { name: "hoddie4", price: 500, category: "Hoodie", img: "bbbb.jpg", name_ar: "هودي رقم 4" },
+  { name: "hoddie5", price: 540, category: "Hoodie", img: "bbbbb.jpg", name_ar: "هودي رقم 5" },
+  { name: "shoes2", price: 350, category: "Shoes", img: "ho.jpg", name_ar: "جزمه رقم 2" }
+];
 
     let currentLang = 'en';
     const productList = document.getElementById("product-list");
