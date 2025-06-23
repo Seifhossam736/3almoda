@@ -10,161 +10,85 @@
       --text: #111;
       --accent: #2b4c7e;
       --card: #fff;
+      --msg: #d4edda;
     }
     [data-theme="dark"] {
       --bg: #121212;
       --text: #eee;
       --accent: #4e9eff;
       --card: #1e1e1e;
+      --msg: #2e7d32;
     }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: sans-serif;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
     body {
       background: var(--bg);
       color: var(--text);
-      padding-bottom: 100px;
+      padding-bottom: 120px;
     }
     header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem;
-      background: var(--card);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      flex-wrap: wrap;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem; background: var(--card); flex-wrap: wrap;
+      position: sticky; top: 0; z-index: 1000;
     }
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: var(--accent);
+    .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent); }
+    .controls, .nav-btns {
+      display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;
     }
-    .nav-btns button,
-    .controls button,
-    .cart button,
-    .lang-btn,
-    .theme-btn,
-    .search-btn,
-    .product button {
-      margin-left: 0.5rem;
-      padding: 0.45rem 1rem;
-      border: none;
-      border-radius: 20px;
+    button {
+      padding: 0.5rem 1rem; border: none; border-radius: 20px;
       background: linear-gradient(to right, #2b4c7e, #3b5f9e);
-      color: white;
-      cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: background 0.3s, transform 0.2s;
-      font-weight: bold;
+      color: white; font-weight: bold; cursor: pointer;
     }
-    .nav-btns button:hover,
-    .controls button:hover,
-    .cart button:hover,
-    .lang-btn:hover,
-    .theme-btn:hover,
-    .search-btn:hover,
-    .product button:hover {
-      background: linear-gradient(to right, #3b5f9e, #4c71be);
-      transform: translateY(-2px);
-    }
-    .controls {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
+    button:hover { opacity: 0.85; }
     .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 1rem;
-      padding: 1rem;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem; padding: 1rem;
     }
     .product {
-      background: var(--card);
-      padding: 0.5rem;
-      border-radius: 12px;
-      text-align: center;
+      background: var(--card); padding: 0.5rem; border-radius: 12px; text-align: center;
       box-shadow: 0 0 5px rgba(0,0,0,0.1);
     }
     .product img {
-      max-width: 100%;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 8px;
+      max-width: 100%; height: 150px; object-fit: cover; border-radius: 8px;
     }
     .cart {
-      position: fixed;
-      right: 1rem;
-      bottom: 1rem;
-      width: 300px;
-      max-height: 400px;
-      background: var(--card);
-      border-radius: 12px;
-      overflow: auto;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-      padding: 1rem;
-      z-index: 900;
+      position: fixed; right: 1rem; bottom: 1rem; width: 300px;
+      background: var(--card); border-radius: 12px; padding: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2); max-height: 400px; overflow-y: auto;
     }
     .search-box {
-      position: fixed;
-      top: 80px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--card);
-      padding: 0.5rem;
-      border-radius: 8px;
-      z-index: 1500;
-      display: none;
+      position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
+      background: var(--card); padding: 0.5rem; border-radius: 8px;
+      z-index: 1000; display: none;
     }
-    #search-input {
-      padding: 0.3rem;
-      width: 250px;
+    #search-input { padding: 0.3rem; width: 250px; }
+    #message {
+      position: fixed; top: 1rem; left: 50%; transform: translateX(-50%);
+      background: var(--msg); color: #000; padding: 0.5rem 1rem;
+      border-radius: 8px; display: none; z-index: 9999;
     }
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.5);
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-    }
-    .modal-content {
-      background: var(--card);
-      padding: 2rem;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 400px;
-    }
-    #about {
-      padding: 2rem;
-      background: var(--card);
-      margin: 1rem;
-      border-radius: 12px;
-    }
+    .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+    .cart-item button { background: red; padding: 0 8px; border-radius: 50%; font-weight: bold; }
   </style>
 </head>
 <body>
+  <div id="message"></div>
+
   <header>
     <div class="logo">3almoda</div>
     <div class="controls">
-      <button onclick="filterProducts('all')">All</button>
-      <button onclick="filterProducts('T-Shirt')">T-Shirts</button>
-      <button onclick="filterProducts('Hoodie')">Hoodies</button>
-      <button onclick="filterProducts('Shoes')">Shoes</button>
-      <button onclick="filterProducts('Dress')">Dress</button>
+      <button id="btn-all" onclick="filterProducts('all')">All</button>
+      <button id="btn-ts" onclick="filterProducts('T-Shirt')">T-Shirts</button>
+      <button id="btn-ho" onclick="filterProducts('Hoodie')">Hoodies</button>
+      <button id="btn-sh" onclick="filterProducts('Shoes')">Shoes</button>
+      <button id="btn-dr" onclick="filterProducts('Dress')">Dresses</button>
     </div>
     <div class="nav-btns">
-      <button onclick="location.href='add-product.html'">Add Product</button>
-      <button onclick="document.getElementById('about').scrollIntoView()">About Us</button>
-      <button class="search-btn" onclick="toggleSearch()">🔍</button>
-      <button class="theme-btn" onclick="toggleTheme()">🌓</button>
-      <button class="lang-btn" onclick="toggleLang()">AR</button>
+      <button id="add-btn" onclick="location.href='add-product.html'">Add Product</button>
+      <button id="about-btn" onclick="document.getElementById('about').scrollIntoView()">About Us</button>
+      <button onclick="toggleSearch()">🔍</button>
+      <button onclick="toggleTheme()">🌓</button>
+      <button onclick="toggleLang()" class="lang-btn">AR</button>
     </div>
   </header>
 
@@ -175,67 +99,93 @@
   <div class="products" id="product-list"></div>
 
   <div class="cart" id="cart">
-    <h3>Cart</h3>
+    <h3 id="cart-title">Cart</h3>
     <ul id="cart-items"></ul>
-    <button onclick="clearCart()">Clear Cart</button>
-    <button onclick="location.href='buy.html'">Buy Now</button>
+    <p><strong id="total-label">Total:</strong> <span id="total-price">0</span> EGP</p>
+    <button id="clear-btn" onclick="clearCart()">Clear Cart</button>
+    <button id="buy-btn" onclick="buyNow()">Buy Now</button>
   </div>
 
-  <section id="about">
-    <h2>About Us</h2>
-    <p>This is a fashion store offering high-quality clothing for everyone. Welcome to 3almoda!</p>
+  <section id="about" style="padding:1rem;">
+    <h2 id="about-title">About Us</h2>
+    <p id="about-text">This is a fashion store offering high-quality clothing for everyone. Welcome to 3almoda!</p>
   </section>
 
   <script>
     const products = [
-  { name: "off white T-shirt", price: 350, category: "T-Shirt", img: "h.jpg", name_ar: "تيشرت اوف ويت" },
-  { name: "wing T-shirt", price: 350, category: "T-Shirt", img: "hhh.jpg", name_ar: "تشيرت جناح" },
-  { name: "traple A T-shirt", price: 350, category: "T-Shirt", img: "hhhh.jpg", name_ar: "تشيرت تربل A" },
-  { name: "grey dress", price: 900, category: "Dress", img: "olo.jpg", name_ar: "فستان رمادي" },
-  { name: "hoodie1", price: 550, category: "Hoodie", img: "b.jpg", name_ar: "هودي رقم 1" },
-  { name: "shoes1", price: 400, category: "Shoes", img: "io.jpg", name_ar: "جزمه رقم 1" },
-  { name: "shoes3", price: 410, category: "Shoes", img: "iuu.jpg", name_ar: "جزمه رقم 3" },
-  { name: "icon T-shirt", price: 350, category: "T-Shirt", img: "hh.jpg", name_ar: "تيشرت ايكون" },
-  { name: "white dress", price: 1000, category: "Dress", img: "pop.jpg", name_ar: "فستان ابيض" },
-  { name: "white dress2", price: 1100, category: "Dress", img: "ppo.jpg", name_ar: "فستان ابيض رقم 1" },
-  { name: "hoddie2", price: 570, category: "Hoodie", img: "bb.jpg", name_ar: "هودي رقم 2" },
-  { name: "hoddie3", price: 510, category: "Hoodie", img: "bbb.jpg", name_ar: "هودي رقم 3" },
-  { name: "hoddie4", price: 500, category: "Hoodie", img: "bbbb.jpg", name_ar: "هودي رقم 4" },
-  { name: "hoddie5", price: 540, category: "Hoodie", img: "bbbbb.jpg", name_ar: "هودي رقم 5" },
-  { name: "shoes2", price: 350, category: "Shoes", img: "ho.jpg", name_ar: "جزمه رقم 2" }
-];
+      { name: "off white T-shirt", price: 350, category: "T-Shirt", img: "h.jpg", name_ar: "تيشرت اوف ويت" },
+      { name: "wing T-shirt", price: 350, category: "T-Shirt", img: "hhh.jpg", name_ar: "تشيرت جناح" },
+      { name: "traple A T-shirt", price: 350, category: "T-Shirt", img: "hhhh.jpg", name_ar: "تشيرت تربل A" },
+      { name: "grey dress", price: 900, category: "Dress", img: "olo.jpg", name_ar: "فستان رمادي" },
+      { name: "hoodie1", price: 550, category: "Hoodie", img: "b.jpg", name_ar: "هودي رقم 1" },
+      { name: "shoes1", price: 400, category: "Shoes", img: "io.jpg", name_ar: "جزمه رقم 1" },
+      { name: "shoes3", price: 410, category: "Shoes", img: "iuu.jpg", name_ar: "جزمه رقم 3" },
+      { name: "icon T-shirt", price: 350, category: "T-Shirt", img: "hh.jpg", name_ar: "تيشرت ايكون" },
+      { name: "white dress", price: 1000, category: "Dress", img: "pop.jpg", name_ar: "فستان ابيض" },
+      { name: "white dress2", price: 1100, category: "Dress", img: "ppo.jpg", name_ar: "فستان ابيض رقم 1" },
+      { name: "hoddie2", price: 570, category: "Hoodie", img: "bb.jpg", name_ar: "هودي رقم 2" },
+      { name: "hoddie3", price: 510, category: "Hoodie", img: "bbb.jpg", name_ar: "هودي رقم 3" },
+      { name: "hoddie4", price: 500, category: "Hoodie", img: "bbbb.jpg", name_ar: "هودي رقم 4" },
+      { name: "hoddie5", price: 540, category: "Hoodie", img: "bbbbb.jpg", name_ar: "هودي رقم 5" },
+      { name: "shoes2", price: 350, category: "Shoes", img: "ho.jpg", name_ar: "جزمه رقم 2" }
+    ];
 
-    let currentLang = 'en';
-    const productList = document.getElementById("product-list");
-    const cartItems = document.getElementById("cart-items");
-    let cart = [];
+    let currentLang = localStorage.getItem("lang") || 'en';
+    let cart = JSON.parse(localStorage.getItem("cart") || '[]');
+
+    function generateCartText() {
+      return cart.map(item => {
+        const name = currentLang === 'en' ? item.name : item.name_ar;
+        return `${name} ×${item.qty} - ${item.price * item.qty} EGP`;
+      }).join('\n');
+    }
 
     function renderProducts(list = products) {
-      productList.innerHTML = "";
+      const container = document.getElementById("product-list");
+      container.innerHTML = "";
       list.forEach(p => {
-        const div = document.createElement("div");
-        div.className = "product";
-        div.innerHTML = `
-          <img src="${p.img}" alt="" />
-          <h4>${currentLang === 'en' ? p.name : p.name_ar}</h4>
-          <button onclick='addToCart(${JSON.stringify(p)})'>${currentLang === 'en' ? 'Add to Cart' : 'أضف إلى السلة'}</button>
+        container.innerHTML += `
+          <div class="product">
+            <img src="${p.img}" alt="">
+            <h4>${currentLang === 'en' ? p.name : p.name_ar}</h4>
+            <p>${p.price} EGP</p>
+            <button onclick='addToCart(${JSON.stringify(p)})'>${currentLang === 'en' ? "Add to Cart" : "أضف إلى السلة"}</button>
+          </div>
         `;
-        productList.appendChild(div);
       });
     }
 
     function addToCart(p) {
-      cart.push(p);
+      const existing = cart.find(item => item.name === p.name);
+      if (existing) existing.qty++;
+      else cart.push({ ...p, qty: 1 });
       updateCart();
+      showMessage(currentLang === 'en' ? "Added to cart" : "تمت الإضافة إلى السلة");
     }
 
     function updateCart() {
-      cartItems.innerHTML = "";
-      cart.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = currentLang === 'en' ? item.name : item.name_ar;
-        cartItems.appendChild(li);
+      const list = document.getElementById("cart-items");
+      const total = document.getElementById("total-price");
+      list.innerHTML = "";
+      let sum = 0;
+      cart.forEach((item, index) => {
+        const name = currentLang === 'en' ? item.name : item.name_ar;
+        const price = item.price * item.qty;
+        sum += price;
+        list.innerHTML += `
+          <li class="cart-item">
+            ${name} ×${item.qty} - ${price} EGP
+            <button onclick="removeItem(${index})">&times;</button>
+          </li>
+        `;
       });
+      total.textContent = sum;
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      updateCart();
     }
 
     function clearCart() {
@@ -243,13 +193,18 @@
       updateCart();
     }
 
-    function filterProducts(cat) {
-      if (cat === 'all') renderProducts();
-      else renderProducts(products.filter(p => p.category === cat));
+    function buyNow() {
+      if (cart.length === 0) {
+        showMessage(currentLang === 'en' ? "Cart is empty" : "السلة فارغة");
+      } else {
+        localStorage.setItem("cartDetails", generateCartText());
+        location.href = "buy.html";
+      }
     }
 
-    function toggleTheme() {
-      document.documentElement.toggleAttribute("data-theme", "dark");
+    function filterProducts(cat) {
+      if (cat === "all") renderProducts();
+      else renderProducts(products.filter(p => p.category === cat));
     }
 
     function toggleSearch() {
@@ -257,23 +212,52 @@
       box.style.display = box.style.display === "block" ? "none" : "block";
     }
 
-    function searchProducts() {
-      const val = document.getElementById("search-input").value.toLowerCase();
-      renderProducts(products.filter(p => p.name.toLowerCase().includes(val) || p.name_ar.includes(val)));
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.setAttribute("data-theme", html.getAttribute("data-theme") === "dark" ? "light" : "dark");
     }
 
     function toggleLang() {
-      currentLang = currentLang === 'en' ? 'ar' : 'en';
-      document.querySelector(".lang-btn").textContent = currentLang === 'en' ? 'AR' : 'EN';
-      renderProducts();
-      updateCart();
-      document.querySelector("#about h2").textContent = currentLang === 'en' ? 'About Us' : 'من نحن';
-      document.querySelector("#about p").textContent = currentLang === 'en'
+      currentLang = currentLang === "en" ? "ar" : "en";
+      localStorage.setItem("lang", currentLang);
+      document.querySelector(".lang-btn").textContent = currentLang === "en" ? "AR" : "EN";
+      document.getElementById("btn-all").textContent = currentLang === 'en' ? 'All' : 'الكل';
+      document.getElementById("btn-ts").textContent = currentLang === 'en' ? 'T-Shirts' : 'تيشيرتات';
+      document.getElementById("btn-ho").textContent = currentLang === 'en' ? 'Hoodies' : 'هوديز';
+      document.getElementById("btn-sh").textContent = currentLang === 'en' ? 'Shoes' : 'أحذية';
+      document.getElementById("btn-dr").textContent = currentLang === 'en' ? 'Dresses' : 'فساتين';
+      document.getElementById("add-btn").textContent = currentLang === 'en' ? 'Add Product' : 'أضف منتجك';
+      document.getElementById("about-btn").textContent = currentLang === 'en' ? 'About Us' : 'من نحن';
+      document.getElementById("clear-btn").textContent = currentLang === 'en' ? 'Clear Cart' : 'افرغ السلة';
+      document.getElementById("buy-btn").textContent = currentLang === 'en' ? 'Buy Now' : 'اشتري الآن';
+      document.getElementById("total-label").textContent = currentLang === 'en' ? 'Total:' : 'الإجمالي:';
+      document.getElementById("cart-title").textContent = currentLang === 'en' ? 'Cart' : 'السلة';
+      document.getElementById("about-title").textContent = currentLang === 'en' ? 'About Us' : 'من نحن';
+      document.getElementById("about-text").textContent = currentLang === 'en'
         ? 'This is a fashion store offering high-quality clothing for everyone. Welcome to 3almoda!'
         : 'هذا متجر أزياء يقدم ملابس عالية الجودة للجميع. مرحبًا بكم في 3almoda!';
+      renderProducts();
+      updateCart();
     }
 
-    renderProducts();
+    function searchProducts() {
+      const val = document.getElementById("search-input").value.toLowerCase();
+      renderProducts(products.filter(p =>
+        p.name.toLowerCase().includes(val) ||
+        p.name_ar.includes(val)
+      ));
+    }
+
+    function showMessage(msg) {
+      const msgBox = document.getElementById("message");
+      msgBox.textContent = msg;
+      msgBox.style.display = "block";
+      setTimeout(() => msgBox.style.display = "none", 3000);
+    }
+
+    // Init
+    document.documentElement.setAttribute("data-theme", "light");
+    toggleLang(); // sets text + rerender
   </script>
 </body>
 </html>
