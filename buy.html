@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -6,33 +5,68 @@
   <title>شراء الآن</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { background: #f0f2f5; font-family: Arial; padding: 20px; }
-    .summary { background: #fff; padding: 15px; border-radius: 10px; white-space: pre-wrap; }
-    form { margin-top: 20px; }
+    body {
+      background: #f0f2f5;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      direction: rtl;
+    }
+    h2 {
+      color: #2b4c7e;
+    }
+    .summary {
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      white-space: pre-wrap;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+    }
+    form {
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
     input, textarea, button {
-      width: 100%; margin: 10px 0; padding: 10px; border-radius: 5px; border: 1px solid #ccc;
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
     }
     button {
-      background: #2c3e50; color: white; border: none; cursor: pointer;
+      background: #2c3e50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1a252f;
     }
   </style>
 </head>
 <body>
   <h2>تفاصيل الطلب:</h2>
-  <div class="summary" id="orderSummary">جار التحميل...</div>
+  <div class="summary" id="orderSummary">جارٍ التحميل...</div>
 
   <form action="https://formspree.io/f/xgvyllkz" method="POST">
-    <input type="text" name="name" placeholder="الاسم" required>
+    <input type="text" name="name" placeholder="الاسم الكامل" required>
     <input type="number" name="number" placeholder="رقم الهاتف" required>
     <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+    <input type="text" name="address" placeholder="العنوان بالتفصيل" required>
     
-    <input type="text" name="name" placeholder="العنوان" required>
     <textarea name="cartDetails" id="cartDetails" rows="6" readonly></textarea>
+    
     <button type="submit">تأكيد الطلب</button>
   </form>
 
   <script>
-    const cartText = localStorage.getItem("cartDetails") || "لا توجد منتجات.";
+    // قراءة البيانات من localStorage
+    const cartText = localStorage.getItem("cartDetails") || "لا توجد منتجات في السلة.";
+    
+    // عرض البيانات في الصفحة وفي الفورم
     document.getElementById("orderSummary").innerText = cartText;
     document.getElementById("cartDetails").value = cartText;
   </script>
