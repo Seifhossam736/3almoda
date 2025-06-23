@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3almoda Store</title>
+  <style>
+    :root {
+      --bg: #f0f2f5;
+      --text: #111;
+      --accent: #2b4c7e;
+      --card: #fff;
+    }
+    [data-theme="dark"] {
+      --bg: #121212;
+      --text: #eee;
+      --accent: #4e9eff;
+      --card: #1e1e1e;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: sans-serif;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      padding-bottom: 100px;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background: var(--card);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      flex-wrap: wrap;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--accent);
+    }
+    .nav-btns button,
+    .controls button,
+    .cart button,
+    .lang-btn,
+    .theme-btn,
+    .search-btn,
+    .product button {
+      margin-left: 0.5rem;
+      padding: 0.45rem 1rem;
+      border: none;
+      border-radius: 20px;
+      background: linear-gradient(to right, #2b4c7e, #3b5f9e);
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background 0.3s, transform 0.2s;
+      font-weight: bold;
+    }
+    .nav-btns button:hover,
+    .controls button:hover,
+    .cart button:hover,
+    .lang-btn:hover,
+    .theme-btn:hover,
+    .search-btn:hover,
+    .product button:hover {
+      background: linear-gradient(to right, #3b5f9e, #4c71be);
+      transform: translateY(-2px);
+    }
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
+    }
+    .product {
+      background: var(--card);
+      padding: 0.5rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .product img {
+      max-width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .cart {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      width: 300px;
+      max-height: 400px;
+      background: var(--card);
+      border-radius: 12px;
+      overflow: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      padding: 1rem;
+      z-index: 900;
+    }
+    .search-box {
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--card);
+      padding: 0.5rem;
+      border-radius: 8px;
+      z-index: 1500;
+      display: none;
+    }
+    #search-input {
+      padding: 0.3rem;
+      width: 250px;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+    .modal-content {
+      background: var(--card);
+      padding: 2rem;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+    }
+    #about {
+      padding: 2rem;
+      background: var(--card);
+      margin: 1rem;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">3almoda</div>
+    <div class="controls">
+      <button onclick="filterProducts('all')">All</button>
+      <button onclick="filterProducts('T-Shirts')">T-Shirts</button>
+      <button onclick="filterProducts('Hoodies')">Hoodies</button>
+      <button onclick="filterProducts('Shoes')">Shoes</button>
+    </div>
+    <div class="nav-btns">
+      <button onclick="location.href='add-product.html'">Add Product</button>
+      <button onclick="document.getElementById('about').scrollIntoView()">About Us</button>
+      <button class="search-btn" onclick="toggleSearch()">🔍</button>
+      <button class="theme-btn" onclick="toggleTheme()">🌓</button>
+      <button class="lang-btn" onclick="toggleLang()">AR</button>
+    </div>
+  </header>
+
+  <div class="search-box" id="search-box">
+    <input type="text" id="search-input" placeholder="Search..." oninput="searchProducts()" />
+  </div>
+
+  <div class="products" id="product-list"></div>
+
+  <div class="cart" id="cart">
+    <h3>Cart</h3>
+    <ul id="cart-items"></ul>
+    <button onclick="clearCart()">Clear Cart</button>
+    <button onclick="location.href='buy.html'">Buy Now</button>
+  </div>
+
+  <section id="about">
+    <h2>About Us</h2>
+    <p>This is a fashion store offering high-quality clothing for everyone. Welcome to 3almoda!</p>
+  </section>
+
+  <script>
+    const products = [
+      { name: "Cool T-Shirt", category: "T-Shirts", img: "https://via.placeholder.com/200x200", name_ar: "تيشيرت رائع" },
+      { name: "Comfy Hoodie", category: "Hoodies", img: "https://via.placeholder.com/200x200", name_ar: "هودي مريح" },
+      { name: "Sport Shoes", category: "Shoes", img: "https://via.placeholder.com/200x200", name_ar: "أحذية رياضية" },
+      { name: "Classic T-Shirt", category: "T-Shirts", img: "https://via.placeholder.com/200x200", name_ar: "تيشيرت كلاسيك" },
+    ];
+
+    let currentLang = 'en';
+    const productList = document.getElementById("product-list");
+    const cartItems = document.getElementById("cart-items");
+    let cart = [];
+
+    function renderProducts(list = products) {
+      productList.innerHTML = "";
+      list.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "product";
+        div.innerHTML = `
+          <img src="${p.img}" alt="" />
+          <h4>${currentLang === 'en' ? p.name : p.name_ar}</h4>
+          <button onclick='addToCart(${JSON.stringify(p)})'>${currentLang === 'en' ? 'Add to Cart' : 'أضف إلى السلة'}</button>
+        `;
+        productList.appendChild(div);
+      });
+    }
+
+    function addToCart(p) {
+      cart.push(p);
+      updateCart();
+    }
+
+    function updateCart() {
+      cartItems.innerHTML = "";
+      cart.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = currentLang === 'en' ? item.name : item.name_ar;
+        cartItems.appendChild(li);
+      });
+    }
+
+    function clearCart() {
+      cart = [];
+      updateCart();
+    }
+
+    function filterProducts(cat) {
+      if (cat === 'all') renderProducts();
+      else renderProducts(products.filter(p => p.category === cat));
+    }
+
+    function toggleTheme() {
+      document.documentElement.toggleAttribute("data-theme", "dark");
+    }
+
+    function toggleSearch() {
+      const box = document.getElementById("search-box");
+      box.style.display = box.style.display === "block" ? "none" : "block";
+    }
+
+    function searchProducts() {
+      const val = document.getElementById("search-input").value.toLowerCase();
+      renderProducts(products.filter(p => p.name.toLowerCase().includes(val) || p.name_ar.includes(val)));
+    }
+
+    function toggleLang() {
+      currentLang = currentLang === 'en' ? 'ar' : 'en';
+      document.querySelector(".lang-btn").textContent = currentLang === 'en' ? 'AR' : 'EN';
+      renderProducts();
+      updateCart();
+      document.querySelector("#about h2").textContent = currentLang === 'en' ? 'About Us' : 'من نحن';
+      document.querySelector("#about p").textContent = currentLang === 'en'
+        ? 'This is a fashion store offering high-quality clothing for everyone. Welcome to 3almoda!'
+        : 'هذا متجر أزياء يقدم ملابس عالية الجودة للجميع. مرحبًا بكم في 3almoda!';
+    }
+
+    renderProducts();
+  </script>
+</body>
+</html>
