@@ -260,6 +260,21 @@
     // Init
     document.documentElement.setAttribute("data-theme", "light");
     toggleLang(); // sets text + rerender
+    // يقفل البحث لما تدوس في أي حته في الصفحة
+document.addEventListener("click", function(e) {
+  const searchBox = document.getElementById("search-box");
+  const searchBtn = document.querySelector("button[onclick='toggleSearch()']");
+  const searchInput = document.getElementById("search-input");
+
+  if (
+    searchBox.style.display === "block" &&
+    !searchBox.contains(e.target) &&
+    !searchBtn.contains(e.target)
+  ) {
+    searchBox.style.display = "none";
+  }
+});
+
   </script>
 </body>
 </html>
